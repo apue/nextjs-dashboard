@@ -3,6 +3,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import styles from '@/app/ui/home.module.css';
 import {lusitana} from "@/app/ui/fonts";
+import Image from 'next/image';
 
 export default function Page() {
   return (
@@ -30,6 +31,19 @@ export default function Page() {
         </div>
         <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
           {/* Add Hero Images Here */}
+          <Image
+              src="/hero-desktop.png"
+              alt="Screenshot of the dashboard project showing hero image"
+              className='hidden md:block'
+              width={1000}
+              height={760}/>
+          <Image
+              src="/hero-mobile.png"
+              alt="Screenshot of the dashboard project showing hero image"
+              className='block md:hidden'
+              width={560}
+              height={620}
+            />
         </div>
       </div>
     </main>
