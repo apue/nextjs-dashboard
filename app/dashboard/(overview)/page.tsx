@@ -5,9 +5,11 @@ import {fetchRevenue} from "@/app/lib/data";
 import {fetchLatestInvoices} from "@/app/lib/data";
 import {fetchCardData} from "@/app/lib/data";
 import {Card} from "@/app/ui/dashboard/cards";
+import {Suspense} from "react";
+import {LatestInvoicesSkeleton, RevenueChartSkeleton} from "@/app/ui/skeletons";
 
 export default async function Page() {
-  const revenue = await fetchRevenue()
+  // const revenue = await fetchRevenue()
   const latestInvoices = await fetchLatestInvoices()
   const {numberOfCustomers, numberOfInvoices, totalPaidInvoices, totalPendingInvoices} = await fetchCardData()
   return (
@@ -22,8 +24,12 @@ export default async function Page() {
           <Card title="Total Customers" value={numberOfCustomers} type="customers"/>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-          <RevenueChart revenue={revenue} />
-          <LatestInvoices latestInvoices={latestInvoices} />
+          <Suspense fallback={<RevenueChartSkeleton/>}>
+          <RevenueChart/>
+          </Suspense>
+          <Suspense fallback={<LatestInvoicesSkeleton/>}>
+            <LatestInvoices/>
+          </Suspense>
         </div>
       </main>
   );
